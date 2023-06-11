@@ -312,3 +312,16 @@ class Pages:
             object = CustomUser.objects.get(name= username)
             email_= object.email
             return render(request, 'send_message.html', {'username': username, 'email': email_})
+        
+
+    def calculate_price_view(request):
+        if request.method == 'POST':
+
+            weight = float(request.POST.get('package_weight'))
+            price_per_kg = PricePerKg.objects.first().price
+            print(price_per_kg)  # Fetch the price per kilogram from the database
+            total_price = weight * price_per_kg
+            return render(request, 'calculate_price.html', {'total_price': total_price, 'price_per_kg': price_per_kg})
+        else:
+            price_per_kg = PricePerKg.objects.first().price  # Fetch the price per kilogram from the database
+            return render(request, 'calculate_price.html', {'price_per_kg': price_per_kg})

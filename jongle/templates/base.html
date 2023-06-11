@@ -1,138 +1,133 @@
-{% comment %} {{% load i18n %}} {% endcomment %}
-
+{% comment %} {% load i18n %} {% endcomment %}
 
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock title %} | jongle</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/dist/css/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+
     {% block styles %}{% endblock %}
     {% block scripts %}{% endblock %}
-  </head>
-  <body>
+<style>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-  
-    <nav class="navbar navbar-expand-lg bg-light">
-      <div class="container-fluid">
+    body {
+      padding-top: 56px; /* Add padding to body to account for fixed navbar height */
+    }
+    
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+    }
+  </style>
+
+
+
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container-fluid">
         <a class="navbar-brand" href="#">JOONGLE</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="home">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="help">Help</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="printbarcode">Print</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#addressModal">Address</a>
-            </li>
-            
-            <li class="nav-item">
-              <a class="nav-link" href="store">Store</a>
-            </li>
-           <li class="nav-item">
-              <a class="nav-link" href="packages">Packages</a>
-            </li>
-            {% comment %} <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown link
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li> {% endcomment %}
-          </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="home"><i class="bi bi-house"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="help"><i class="bi bi-question-circle"></i> Help</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="calculator"><i class="bi bi-calculator"></i> Calculator</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#addressModal"><i class="bi bi-geo-alt"></i> Address</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="store"><i class="bi bi-shop"></i> Store</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="packages"><i class="bi bi-box"></i> Packages</a>
+                </li>
+            </ul>
 
-          {% if user.is_authenticated %}
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  {{ user.username }}
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">{{request.user}}</a></li>
-                  <li><a class="dropdown-item" href="#">Profile</a></li>
-                  <li><a class="dropdown-item" href="#">Packages</a></li>
-                  <li><a class="dropdown-item" href="#">History</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="logout">Logout</a></li>
+            {% if user.is_authenticated %}
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> {{request.user}}</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person-circle"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-box"></i> Packages</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-clock-history"></i> History</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="logout"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                        </ul>
+                    </li>
                 </ul>
-              </li>
-            </ul>
-          {% else %}
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="signin">Sign In</a>
-              </li>
-            </ul>
-          {% endif %}
+            {% else %}
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="signin"><i class="bi bi-box-arrow-in-right"></i> Sign In</a>
+                    </li>
+                </ul>
+            {% endif %}
         </div>
-      </div>
-    </nav>
-    {% include 'address_popup.html' %}
-    {% if messages %}
-      <ul class="messages">
+    </div>
+</nav>
+
+{% include 'address_popup.html' %}
+{% if messages %}
+    <div class="messages">
         {% for message in messages %}
-          <div class="alert alert-{{ message.tags }} alert-dismissible fade show mx-0 my-2" role="alert">
-            <strong>{{ message.tags }}!</strong> {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show mx-0 my-2" role="alert">
+                <strong>{{ message.tags }}!</strong> {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         {% endfor %}
-      </ul>
-    {% endif %}
+    </div>
+{% endif %}
 
-    {% block body %}
-
-    {% endblock body %}
-
-
-
-<!-- Your page content here -->
+{% block body %}{% endblock %}
 
 <footer class="footer py-4 bg-light">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <h5>About Us</h5>
-        <p>Jongle is a leading shipping company dedicated to providing efficient and secure shipping services. With our expertise and advanced logistics solutions, we ensure that your packages reach their destinations with utmost care and reliability.</p>
-        <p>At Jongle, we understand the importance of timely and secure shipping for businesses and individuals alike. Whether you need to ship products for your e-commerce store or send personal packages to your loved ones, we have you covered.</p>
-      </div>
-      <div class="col-md-3">
-        <h5>Quick Links</h5>
-        <ul class="list-unstyled">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </div>
-      <div class="col-md-3">
-        <h5>Contact Us</h5>
-        <p>123 Shipping Street, City</p>
-        <p>Phone: 123-456-7890</p>
-        <p>Email: info@example.com</p>
-      </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h5>About Us</h5>
+                <p>Jongle is a leading shipping company dedicated to providing efficient and secure shipping services. With our expertise and advanced logistics solutions, we ensure that your packages reach their destinations with utmost care and reliability.</p>
+                <p>At Jongle, we understand the importance of timely and secure shipping for businesses and individuals alike. Whether you need to ship products for your e-commerce store or send personal packages to your loved ones, we have you covered.</p>
+            </div>
+            <div class="col-md-3">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5>Contact Us</h5>
+                <p>123 Shipping Street, City</p>
+                <p>Phone: 123-456-7890</p>
+                <p>Email: info@example.com</p>
+            </div>
+        </div>
     </div>
-  </div>
 </footer>
 
-
-
-
-    
-  
-
-  </body>
+</body>
 </html>

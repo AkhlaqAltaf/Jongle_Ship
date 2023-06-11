@@ -1,28 +1,12 @@
 {% load static %}
 
-
-
-
-
-
-
-
-    <!doctype html>
+<!doctype html>
 <html lang="en">
-
-
-
-
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% comment %} <title>{% block title %}{% endblock title %} |jongle</title> {% endcomment %}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  
-    <meta cha  rset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <style>
         .login-container {
             background-image: url("{% static 'images/c4.jpg' %}");
@@ -40,24 +24,107 @@
             padding: 20px;
             background-color: rgba(255, 255, 255, 0.8);
             border-radius: 5px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+
+        .form-group.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .form-group input {
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        .form-group input:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        .form-group button {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+
+        .form-group button.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        p {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+
+        p.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .rotate-line-container {
+            text-align: center;
+        }
+
+        .rotate-line {
+            width: 1px;
+            height: 100%;
+            background-color: #007bff;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .rotate-line:before {
+            content: "";
+            width: 100%;
+            height: 100%;
+            background-color: inherit;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: rotateLine 2s linear infinite;
+            transform-origin: top;
+        }
+
+        @keyframes rotateLine {
+            0% { transform: rotate(0); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .text-highlight {
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+            animation: highlightText 2s linear infinite;
+        }
+
+        @keyframes highlightText {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
         }
     </style>
 </head>
-
-  <body>
+<body>
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
-
-
-        {% comment %} <li{% if message.tags %} class="{{ message.tags }}"{% endif %}></li> {% endcomment %}
-
-        <div  class="alert alert-{{ message.tags }} alert-dismissible fade show mx-0 my-2" role="alert">
-          <strong>{{ message.tags }}!</strong> {{ message }}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show mx-0 my-2" role="alert">
+            <strong>{{ message.tags }}!</strong> {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-         
-
         {% endfor %}
     </ul>
     {% endif %}
@@ -65,11 +132,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
   
     <div class="login-container">
-        <form class="login-form" method="POST" action = 'signinauth'>
+        <form class="login-form" method="POST" action="signinauth">
             {% csrf_token %}
-            <h2 class="text-center">Login</h2>
-
-            
+            <div class="rotate-line-container">
+                <span class="rotate-line"></span>
+            </div>
+            <h2 class="text-center">
+                <span class="text-highlight">Sign In</span>
+            </h2>
 
             <div class="form-group">
                 <label for="username">Username</label>
@@ -80,20 +150,26 @@
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
             </div>
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-            <p>
-                if you are not registerd already please <a href = 'signup'> Register  </a>  first
-            </P>
-
-           
+            <p class="text-center">
+                If you are not registered already, please <a href="signup">Register</a> first.
+            </p>
         </form>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var formGroups = document.querySelectorAll('.form-group');
+            var button = document.querySelector('.btn-block');
+            var paragraph = document.querySelector('p');
 
-   
-
-
-    {% comment %} <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script> {% endcomment %}
+            setTimeout(function() {
+                formGroups.forEach(function(group) {
+                    group.classList.add('visible');
+                });
+                button.classList.add('visible');
+                paragraph.classList.add('visible');
+            }, 200);
+        });
+    </script>
 </body>
 </html>

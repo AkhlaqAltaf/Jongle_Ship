@@ -34,8 +34,9 @@ urlpatterns = [
      path('packages' , Pages.package_details ,name='packages'),
      path('uploadpackages' , Pages.upload_package ,name='uploadpackages'),
      path('printbarcode' , Pages.generate_barcode ,name='printbarcode'),
-      path('send_message', Pages.send_message, name='send_message'),
+     path('send_message', Pages.send_message, name='send_message'),
 
+      path('calculator', Pages.calculate_price_view, name='calculator'),
 
      
 ]

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from interface.models import CustomUser, Store, Profile
+from interface.models import *
 from django.contrib.admin import AdminSite
 from django.urls import reverse
 from django.utils.html import format_html
@@ -59,3 +59,4 @@ class ProfileAdmin(admin.ModelAdmin):
 admin_site.register(CustomUser, CustomUserAdmin)
 admin_site.register(Store, StoreAdmin)
 admin_site.register(Profile, ProfileAdmin)
+admin_site.register(PricePerKg)

@@ -37,3 +37,7 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username    
+    
+
+class PricePerKg(models.Model):
+    price = models.FloatField()    
