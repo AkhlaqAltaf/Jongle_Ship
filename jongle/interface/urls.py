@@ -37,6 +37,7 @@ urlpatterns = [
      path('send_message', Pages.send_message, name='send_message'),
 
       path('calculator', Pages.calculate_price_view, name='calculator'),
-
+    path('reset_password/', Pages.reset_password, name='reset_password'),
+    path('reset_password/<uidb64>/<token>/', Pages.reset_password_confirm, name='reset_password_confirm'),
      
 ]

@@ -5,11 +5,14 @@ Price Calculator
 {% endblock title %}
 
 {% block body %}
+
+
 <body>
     <div class="container">
         <h1>Price Calculator</h1>
         <form method="post" action="calculator">
             {% csrf_token %}
+            
             <div class="form-group">
                 <label for="shipping_address">Shipping Address:</label>
                 <input type="text" name="shipping_address" class="form-control" required>

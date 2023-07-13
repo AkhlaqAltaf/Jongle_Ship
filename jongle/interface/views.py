@@ -15,6 +15,15 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.core.mail import EmailMultiAlternatives
 
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth import get_user_model
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+
 import barcode
 from barcode.writer import ImageWriter
 from django.http import HttpResponse
@@ -23,6 +32,11 @@ import io
 import win32print
 import tempfile
 from django.conf import settings
+
+import requests
+from interface.templatetags import timemantain
+
+
 
 
 # Create your views here.
@@ -93,8 +107,7 @@ class Pages:
         print(request.user.is_anonymous)
 
 
-        if request.method == 'POST':
-             
+        if request.method == 'POST':             
              username = request.POST.get('username')
              password = request.POST.get('password')
 
@@ -110,7 +123,7 @@ class Pages:
              else :
                 messages.error(request, 'User Name or password wrong......')
                 return redirect('signin')
-
+    
 
     def store_list(request):
         stores = Store.objects.all()
@@ -119,7 +132,7 @@ class Pages:
 
     def help(request):
          
-         return render(request ,"help.html")
+         return render(request ,"help.html" )
     
 
 
@@ -314,14 +327,139 @@ class Pages:
             return render(request, 'send_message.html', {'username': username, 'email': email_})
         
 
+
+
     def calculate_price_view(request):
         if request.method == 'POST':
-
             weight = float(request.POST.get('package_weight'))
-            price_per_kg = PricePerKg.objects.first().price
-            print(price_per_kg)  # Fetch the price per kilogram from the database
-            total_price = weight * price_per_kg
-            return render(request, 'calculate_price.html', {'total_price': total_price, 'price_per_kg': price_per_kg})
+            dimension = "10x8x6"
+            address = request.POST.get('shipping_address')
+
+            # Make the API request to DHL
+            url = 'https://api.dhl.com/ship/price'
+            headers = {
+                'Content-Type': 'application/json',
+                'DHL-API-Key':'SFpxFQVKmSWdOLC75kGiwpvDARJvJEw0',
+                'DHL-API-Secret': 'mTqc7hHtkKniX2tW',
+            }
+            data = {
+                'weight': weight,
+                'dimension': dimension,
+                'address': address,
+            }
+
+            response = requests.post(url, headers=headers, json=data)
+            print("Response ...........",response)
+            # Handle the API response
+            if response.status_code == 200:
+                total_price = response.json()['price']
+                print("Here is Response..........." , response.json())
+                return render(request, 'calculate_price.html', {'total_price': total_price})
+            else:
+                print("Error Occur During Request..........." )
+                # Handle error response
+                error_message = "Failed to retrieve shipping price. Please try again later."
+                return render(request, 'calculate_price.html', {'error_message': error_message})
         else:
             price_per_kg = PricePerKg.objects.first().price  # Fetch the price per kilogram from the database
             return render(request, 'calculate_price.html', {'price_per_kg': price_per_kg})
+
+
+
+        # Foragate Password 
+
+
+     
+    def reset_password(request):
+        if request.method == 'POST':
+            email = request.POST['email']
+            custom_user = CustomUser.objects.filter(email=email).first()
+    
+            if custom_user:
+                user = custom_user.user
+                token = default_token_generator.make_token(user)
+                uid = urlsafe_base64_encode(force_bytes(user.pk))
+                reset_link = request.build_absolute_uri(f'/reset_password/{uid}/{token}/')
+                
+                Pages.send_password_reset_email(custom_user.email, reset_link)
+                messages.success(request, 'An email has been sent with instructions to reset your password.')
+                return redirect('signin')
+            else:
+                messages.error(request, 'No user with that email address exists.')
+                return redirect('reset_password')
+
+        return render(request, 'reset_password.html')
+
+    def reset_password_confirm(request, uidb64, token):
+        try:
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = None
+            print("User Is does not exit........")
+
+        if user and default_token_generator.check_token(user, token):
+
+            if request.method == 'POST':
+                password = request.POST['password']
+                user.set_password(password)
+                user.save()
+                messages.success(request, 'Your password has been reset successfully. Please log in.')
+                return redirect('signin')
+            return render(request, 'reset_password_confirm.html')
+        else:
+            messages.error(request, 'The reset password link is invalid.')
+            return redirect('signin')
+        
+
+    def send_password_reset_email(email, reset_link):
+
+        subject = 'Reset Your Password'
+        message = render_to_string('reset_password_email.html', {
+            'reset_link': reset_link
+        })
+        send_mail(subject, message, settings.HOST_EMAIL, [email])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#         import http.client
+# import urllib.parse
+# import json
+
+# params = urllib.parse.urlencode({
+#     'trackingNumber': '7777777770',
+#     'service': 'express'
+# })
+
+# headers = {
+#     'Accept': 'application/json',
+#     'DHL-API-Key': 'ApiKeyHere'
+# }
+
+# connection = http.client.HTTPSConnection("api-eu.dhl.com")
+
+# connection.request("GET", "/track/shipments?" + params, "", headers)
+# response = connection.getresponse()
+
+# status = response.status
+# reason = response.reason
+# data = json.loads(response.read())
+
+# print("Status: {} and reason: {}".format(status, reason))
+# print(data)
+
+# connection.close()
