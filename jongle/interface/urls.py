@@ -22,22 +22,24 @@ from interface.views import Pages
 urlpatterns = [
     
      path('',Pages.home ,name='home' ),
-       path('home',Pages.home ,name='home' ),
-
-     path('signin', Pages.signin, name='signin'),
-     path('signup', Pages.signup, name='signup'),
-     path('register' , Pages.saveauth , name = 'register '),
-     path('signinauth',Pages.signin_auth  ,name = 'signinauth'),
+     path('home',Pages.home ,name='home' ),
      path('store',Pages.store_list, name='store'),
      path('help' , Pages.help ,name='help'),
-     path('logout' , Pages.logout ,name='logout'),
-     path('packages' , Pages.package_details ,name='packages'),
-     path('uploadpackages' , Pages.upload_package ,name='uploadpackages'),
      path('printbarcode' , Pages.generate_barcode ,name='printbarcode'),
-     path('send_message', Pages.send_message, name='send_message'),
+     path('calculator', Pages.calculate_price_view, name='calculator'),
+     path('dhlapi' , Pages.dhlApi , name ='dhlapi'),
+      path('dhlapi/tracking' , Pages.tracking_page , name ='dhlapi'),
+       path('get_tracking_data' , Pages.get_tracking_data , name ='dhlapi'),
+          path('upload_shipment', Pages.upload_shipment, name='upload_shipment'),
+   # path('tracking/', views.tracking_page, name='tracking_page'),
+        path('path/to/fetch/notifications/', Pages.fetch_notifications, name='fetch-notifications'),
+    path('path/to/mark/notifications/as/read/', Pages.mark_notifications_as_read, name='mark-notifications-as-read'),
 
-      path('calculator', Pages.calculate_price_view, name='calculator'),
-    path('reset_password/', Pages.reset_password, name='reset_password'),
-    path('reset_password/<uidb64>/<token>/', Pages.reset_password_confirm, name='reset_password_confirm'),
+
+
+
+
+    # path('reset_password/', Pages.reset_password, name='reset_password'),
+    # path('reset_password/<uidb64>/<token>/', Pages.reset_password_confirm, name='reset_password_confirm'),
      
 ]

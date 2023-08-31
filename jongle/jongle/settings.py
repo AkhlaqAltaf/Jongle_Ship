@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 import smtpd
 from django.contrib.messages import constants as messages
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -33,7 +34,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    
+    'channels',
     'interface.apps.InterfaceConfig',
+    'package.apps.PackageConfig',
+    'user.apps.UserConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -67,7 +72,7 @@ ROOT_URLCONF = 'jongle.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/'templates'],
+        'DIRS': [ BASE_DIR/'templates'   ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,7 +85,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'jongle.wsgi.application'
+ASGI_APPLICATION = 'jongle.asgi.application'
+# WSGI_APPLICATION = 'jongle.wsgi.application'
 
 
 # Database
@@ -150,3 +156,23 @@ LOCALE_PATHS = [
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
+
+# ASGI_APPLICATION = "jongle.asgi.application"
+
+
+CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels_redis.core.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": [("localhost", 6379)],
+            },
+        },
+    }
+
+
+
+DHL_API_KEY = 'Wjgw0r1yUNgJJnjcboDQ7P6xuDUOSSXW'
+DHL_API_SECRET = 'hXSfV9GFpWFOxT1D'
+DHL_ACCOUNT = '03317782810'
+DHL_ACCOUNT_IMPORT = 'IMP789012'
+DHL_ACCOUNT_EXPORT = 'EXP123456'

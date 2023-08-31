@@ -1,0 +1,20 @@
+{% extends 'package/base_packages.html' %}
+
+{% block page_content %}
+    <div class="container mt-4">
+        <h2>Forward Packages</h2>
+        
+        <form method="post" action="{% url 'process_forward' profile.id %}">
+            {% csrf_token %}
+            <ul>
+                {% for package in packages %}
+                    <li>
+                        <input type="checkbox" name="selected_packages" value="{{ package.id }}">
+                        {{ package.package.package_name }}
+                    </li>
+                {% endfor %}
+            </ul>
+            <button type="submit">Done</button>
+        </form>
+    </div>
+{% endblock %}

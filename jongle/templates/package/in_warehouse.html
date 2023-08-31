@@ -1,0 +1,90 @@
+{% extends 'package/base_packages.html' %}
+
+{% block page_content %}
+    <div class="container mt-4">
+        <h2>In Warehouse</h2>
+        
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        Action Required
+                    </div>
+                    <div class="card-body">
+                        <form action="{% url 'process_actions' %}" method="post">
+                            {% csrf_token %}
+                            <ul>
+                                {% for package in action_required_packages %}
+                                    <li>
+                                        {{ package.package.package_name }}
+                                        <select class="form-control" name="package_{{ package.id }}_action">
+                                            <option value="no_decision">No Decision</option>
+                                            <option value="forward">Forward</option>
+                                            <option value="repackage_forward">Repackage & Forward</option>
+                                            <option value="consolidate">Consolidate</option>
+                                        </select>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <button type="submit" class="btn btn-primary">Process Actions</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <!-- ... -->
+            </div>
+            
+            <div class="col-md-4">
+                <!-- ... -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Consolidate Packages Modal -->
+    <div class="modal fade" id="consolidateModal" tabindex="-1" role="dialog" aria-labelledby="consolidateModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="consolidateModalLabel">Select Packages to Consolidate</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- List of packages to select -->
+                    <form id="consolidateForm">
+                        {% for warehouse_package in warehouse_packages %}
+                            <label>
+                                <input type="checkbox" class="consolidate-checkbox" name="consolidate_packages" value="{{ warehouse_package.id }}">
+                                {{ warehouse_package.package.package_name }}
+                            </label><br>
+                        {% endfor %}
+                        <button type="button" class="btn btn-primary" id="consolidateDoneButton">Done</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Handle the Done button click in the Consolidate Packages Modal
+        $("#consolidateDoneButton").click(function() {
+            var selectedPackageIds = [];
+            $(".consolidate-checkbox:checked").each(function() {
+                selectedPackageIds.push($(this).val());
+            });
+            
+            // Perform your consolidation logic here with the selectedPackageIds
+            // You can send an AJAX request to your server to create the consolidated package
+            // ...
+            
+            // Close the modal
+            $("#consolidateModal").modal("hide");
+        });
+    });
+</script>

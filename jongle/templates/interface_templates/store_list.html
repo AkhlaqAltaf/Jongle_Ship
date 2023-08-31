@@ -1,0 +1,31 @@
+{% extends 'interface_templates/base.html' %}
+
+{% block body %}
+<body>
+  <div class="container">
+    <h1 class="text-center">Online Stores</h1>
+    
+    <div class="content text-center">
+      <p>You can buy anything from these stores!</p>
+      <p>Paste our address and we will ship it for you.</p>
+      <p>Don't hesitate to contact us if you face any problems. Thanks!</p>
+    </div>
+    
+    <div class="row">
+      {% for store in stores %}
+        <div class="col-md-4">
+          <div class="card mb-3">
+            <img src="{{ store.logo_url }}" class="card-img-top" alt="{{ store.name }} logo" style="width: 100px; height: 100px; object-fit: contain;">
+            <div class="card-body">
+              <h5 class="card-title">{{ store.name }}</h5>
+              <a target = 'blank' href="{{ store.website_url }}" class="btn btn-primary">Visit Store</a>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-center">No stores available.</p>
+      {% endfor %}
+    </div>
+  </div>
+</body>
+{% endblock body %}

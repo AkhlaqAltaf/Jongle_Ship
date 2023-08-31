@@ -1,10 +1,19 @@
-from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
+from django.contrib import admin 
 from interface.models import *
+
 from django.contrib.admin import AdminSite
+
+from django.contrib import admin
+
+
+
 from django.urls import reverse
 from django.utils.html import format_html
 from urllib.parse import quote
+from django.contrib.admin import AdminSite
+
+
+
 class CustomAdminSite(AdminSite):
 
     site_header = 'JONGLE Admin Site'
@@ -12,17 +21,23 @@ class CustomAdminSite(AdminSite):
 
 admin_site = CustomAdminSite()
 
+
 @admin.register(CustomUser)
 class CustomUserAdmin(admin.ModelAdmin):
+
     search_fields = ['unique_id', 'user__username', 'user__email']
     list_display = ['unique_id', 'user', 'name', 'address', 'phone', 'email', 'upload_package_link' , 'send_email_link']
 
     def upload_package_link(self, obj):
 
         url = reverse('uploadpackages')
-        link = f'<a href="{url}?username={obj.user.username}" class="btn btn-link">Upload Package</a>'
+        object = CustomUser.objects.get(name= obj.user.username)
+        link = f'<a href="{url}?username={obj.user.username}&destinationCountry={object.destinationCountry}" class="btn btn-link">Upload Package</a>'
         return format_html(link)
     
+
+
+
 
 
 
@@ -45,18 +60,30 @@ class CustomUserAdmin(admin.ModelAdmin):
 
 
 
+
+
+
+
+
+# Register the models with the custom admin site
+
+
+
+
+
+
+
 @admin.register(Store)
 class StoreAdmin(admin.ModelAdmin):
     search_fields = ['name']
     list_display = ['name', 'logo_url', 'website_url']
 
-@admin.register(Profile)
-class ProfileAdmin(admin.ModelAdmin):
-    search_fields = ['user__username', 'user__email']
-    list_display = ['user', 'package_image', 'package_dimensions', 'package_weight']
 
-# Register the models with the custom admin site
+
+admin_site.register(BaseUser)
 admin_site.register(CustomUser, CustomUserAdmin)
+
 admin_site.register(Store, StoreAdmin)
-admin_site.register(Profile, ProfileAdmin)
+
 admin_site.register(PricePerKg)
+admin_site.register(Notification)

@@ -1,0 +1,79 @@
+{% extends 'interface_templates/base.html' %}
+
+{% block title %}
+Packages - {{ request.user }}
+{% endblock title %}
+
+{% block body %}
+  {% if not request.user.is_authenticated %}
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="alert alert-info" role="alert">
+            Please <a href="user/signin">sign in</a> to access this page.
+          </div>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          {% for profile in profiles %}
+            <div class="card mb-3">
+              <div class="card-header">
+                <h2 class="text-center">Package Details</h2>
+              </div>
+              <div class="card-body">
+                {% if profile.package_image %}
+                  <div class="text-center">
+                    <img src="static/{{ profile.package_image }}" alt="{{ profile.package_image }}" class="img-fluid">
+                  </div>
+                {% else %}
+                  <p class="text-center">No package image available.</p>
+                {% endif %}
+                <div class="mt-4">
+                  {% if profile.package_name %}
+                    <p><strong>Package Name:</strong> {{ profile.package_name }}</p>
+                  {% endif %}
+                  {% if profile.package_dimensions %}
+                    <p><strong>Package Dimensions:</strong> {{ profile.package_dimensions }}</p>
+                  {% endif %}
+                  {% if profile.package_weight %}
+                    <p><strong>Package Weight:</strong> {{ profile.package_weight }}</p>
+                  {% endif %}
+                  {% if profile.package_price %}
+                    <p><strong>Shipping Price:</strong> {{ profile.package_price }}</p>
+                  {% endif %}
+                  {% if profile.package_description %}
+                    <p><strong>Package Description:</strong> {{ profile.package_description }}</p>
+
+                  {% endif %}
+
+                  
+                  
+                  <!-- Display other package details as needed -->
+                </div>
+              </div>
+            </div>
+          {% empty %}
+            <p class="text-center">No packages found.</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+
+  {% endif %}
+
+  <script>
+
+
+
+
+  </script>
+
+
+
+
+{% endblock %}

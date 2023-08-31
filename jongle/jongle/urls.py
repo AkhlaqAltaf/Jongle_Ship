@@ -21,4 +21,6 @@ from interface.admin import admin_site
 urlpatterns = [
     path('admin/', admin_site.urls),
      path('', include('interface.urls')),
+      path('user/', include('user.urls')),
+      path ('package/', include('package.urls'))
 ]
