@@ -1,20 +1,14 @@
-from io import BytesIO
-from django.shortcuts import render ,HttpResponse ,redirect
+from django.shortcuts import render ,redirect
 from django_countries import countries
-from interface.models import PricePerKg
 from interface.models import *
 from django.contrib import messages
-from datetime import datetime
 
-from django.utils.translation import gettext as gt
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 
-from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
-from django.utils.html import strip_tags
 from django.core.mail import EmailMultiAlternatives
 
 from django.contrib.auth.models import User
@@ -26,17 +20,8 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 
-import barcode
-from barcode.writer import ImageWriter
-from django.http import HttpResponse
-from PIL import Image, ImageDraw, ImageFont
-import io
-import win32print
-import tempfile
 from django.conf import settings
 
-import requests
-from interface.templatetags import timemantain
 
 
 
