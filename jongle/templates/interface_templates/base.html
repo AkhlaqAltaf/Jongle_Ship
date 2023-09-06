@@ -24,15 +24,66 @@
 
     body {
       padding-top: 56px; /* Add padding to body to account for fixed navbar height */
-    }
+      {% comment %} background-image:url('../static/images/home-page.jpg'); {% endcomment %}
+      background-repeat:no-repeat;
+      background-size:cover;
+
     
-    .navbar {
+      
+    }
+
+    
+    nav {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      z-index: 100;
+      z-index: 100; 
+      
+      
+      
     }
+
+    .navbar.navbar-expand-lg.navbar-light.bg-light {
+        background-color: #000 !important; /* Black background color */
+    }
+
+    /* Navbar text color */
+    .navbar.navbar-expand-lg.navbar-light.bg-light .navbar-brand,
+    .navbar.navbar-expand-lg.navbar-light.bg-light .navbar-nav .nav-link {
+        color: #fff !important; /* White text color */
+    }
+
+    /* Style the active link */
+    .navbar.navbar-expand-lg.navbar-light.bg-light .navbar-nav .nav-item.active .nav-link {
+        background-color: #333 !important; /* Darker background color for the active link */
+    }
+
+    /* Style the dropdown menu background color and text color */
+    .navbar.navbar-expand-lg.navbar-light.bg-light .dropdown-menu {
+        background-color: #000 !important; /* Black background color */
+    }
+
+    .navbar.navbar-expand-lg.navbar-light.bg-light .dropdown-item {
+        color: #fff !important; /* White text color for dropdown items */
+    }
+
+    /* Style the notification badge */
+    .navbar.navbar-expand-lg.navbar-light.bg-light .fa-bell {
+        color: #fff !important; /* White color for the bell icon */
+    }
+
+    #notification-badge {
+        background-color: red; /* Red background color for the badge */
+        color: #fff; /* White text color for the badge */
+    }
+
+    /* Add some spacing to the navbar links */
+    .navbar.navbar-expand-lg.navbar-light.bg-light .navbar-nav .nav-link {
+        margin-right: 20px;
+    }
+   
+    
   </style>
 
 
@@ -41,7 +92,7 @@
 <body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
-<nav id='nav' class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+<nav  class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">JOONGLE</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -151,32 +202,7 @@
 
 
 
-<footer class="footer py-4 bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h5>About Us</h5>
-                <p>Jongle is a leading shipping company dedicated to providing efficient and secure shipping services. With our expertise and advanced logistics solutions, we ensure that your packages reach their destinations with utmost care and reliability.</p>
-                <p>At Jongle, we understand the importance of timely and secure shipping for businesses and individuals alike. Whether you need to ship products for your e-commerce store or send personal packages to your loved ones, we have you covered.</p>
-            </div>
-            <div class="col-md-3">
-                <h5>Quick Links</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3">
-                <h5>Contact Us</h5>
-                <p>123 Shipping Street, City</p>
-                <p>Phone: 123-456-7890</p>
-                <p>Email: info@example.com</p>
-            </div>
-        </div>
-    </div>
-</footer>
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
