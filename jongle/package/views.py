@@ -1,15 +1,10 @@
 from django.shortcuts import render
-from django.shortcuts import redirect, render 
+from django.shortcuts import render 
 from interface.models import *
 from user.models import *
-from interface.models import Store
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from interface.controler import notification_controller as nc
 
-from interface.controler import other_controller as oc
-from interface.controler import api_controller as api_c
-from interface.controler import email_controller as ec
 from .controller import package_controller as pc
 from .models import *
 class Pages:

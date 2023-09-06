@@ -1,7 +1,7 @@
 
 # python dhl 
 
-from django.conf import settings
+# from django.conf import settings
 from python_dhl.service import DHLService
 from python_dhl.resources import shipment , address
 
@@ -14,9 +14,18 @@ from reportlab.platypus import SimpleDocTemplate, Image
 from io import BytesIO
 
 import requests
+# settings.configure()
+
+class settings:
+
+    DHL_API_KEY = 'Wjgw0r1yUNgJJnjcboDQ7P6xuDUOSSXW'
+    DHL_API_SECRET = 'hXSfV9GFpWFOxT1D'
+    DHL_ACCOUNT = '950250272'
+    DHL_ACCOUNT_IMPORT = '950250272'
+    DHL_ACCOUNT_EXPORT = '950250272'
 
 
-with open('static/images/logo.png', 'rb') as logo_file:
+with open('jongle/static/images/logo.png', 'rb') as logo_file:
     logo_base64 = base64.b64encode(logo_file.read()).decode('utf-8')
 
 
@@ -231,5 +240,7 @@ def letsShipData():
     return s
 
 
+if __name__=='__main__':
 
+    letsShipData()
 

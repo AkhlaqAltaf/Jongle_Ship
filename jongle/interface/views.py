@@ -1,15 +1,15 @@
-from django.shortcuts import redirect, render 
+from django.shortcuts import render 
 from interface.models import *
 from user.models import *
 from interface.models import Store
-from django.contrib.auth.decorators import login_required
+
 from django.shortcuts import render
 from .controler import notification_controller as nc
 
 from .controler import other_controller as oc
 from .controler import api_controller as api_c
 from .controler import email_controller as ec
-from .dhl import dhl_apis as dhl_api
+
 
 
 
