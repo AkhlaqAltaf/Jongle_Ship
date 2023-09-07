@@ -6,17 +6,17 @@
   .carousel-inner img{
     width:100%; 
     height:90vh;
-    {% comment %} padding:0%; {% endcomment %}
+    
        
   }
 
 
-  {% comment %} .carousel-control-prev, 
-  .carousel-control-next {
-    background-color: black; /* Change the background color to black */
-    color: white; /* Change the text color to white */
-  } {% endcomment %}
+.third img{
+  width:100%; 
+  height:90vh;
+  margin-bottom:15px;
 
+}
 
 
 
@@ -38,6 +38,35 @@
     height: auto;
 }
  
+.footer {
+  background-image: url('../static/images/whychoseus.jpg'); /* Replace with your actual image path */
+  background-size: cover;
+  color: black;
+  padding: 50px 0;
+  text-align: center;
+}
+
+.choose-us {
+  font-size: 24px;
+  font-weight: bold;
+  
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a text shadow for better visibility */
+}
+
+.description {
+  font-size: 18px;
+  margin-top: 20px;
+  
+}
+
+{% comment %} 
+#image-container {
+
+  width: 100wh;
+  height: 100vh; /* Make the image container take up the full viewport height */
+  
+} {% endcomment %}
+
 </style>
 
 <div class="container-fluid mt-2">
@@ -118,6 +147,57 @@
   </div>
 </div>
 
+
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-12">
+      <!-- Text on top half of the screen -->
+      <div class="text-center">
+        <h2>Discover Exceptional Services with Joongle Company</h2>
+        <p>Joongle Company is renowned for its unparalleled range of services designed 
+          to cater to your diverse needs. From cutting-edge technological solutions to top-tier
+           customer support, we are committed to delivering excellence. Our dedicated team of experts 
+           works tirelessly to provide innovative, reliable, and efficient services, ensuring your utmost 
+           satisfaction. Experience the future of service excellence with Joongle
+           Company, where your needs are not just met but exceeded.</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <!-- Image on bottom half of the screen -->
+      <div class="third">
+        <img src="../static/images/sectionimg.jpg" alt="Your Image" class="img-fluid">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="choose-us">Why Choose Us</div>
+                <div class="description">
+                  "Choose Joongle for your shipping needs, where every parcel becomes a 
+                  
+                  journey of trust and reliability. With a passion for precision and a commitment to excellence, 
+                  we seamlessly bridge the gap between sender and receiver. Our dedicated team ensures that your 
+                  precious cargo arrives not just on time but with the utmost care, transforming mere shipments into moments 
+                  of anticipation and delight. Join our Joongle family today and experience the difference of a shipping partner 
+                  that puts your needs first, turning every delivery into a testament of our
+                   unwavering commitment to your satisfaction."
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
 
 
 
