@@ -6,13 +6,151 @@ Price Calculator
 
 {% block body %}
 
+<style>
+    .inline-input {
+      display: inline-block;
+      width: 20%; /* Adjust the width as needed */
+      margin-right: 10px; /* Add spacing between fields */
+      margin-left:10px;
 
-<body>
-    <div class="container">
+
+      
+    
+
+    border: 2px solid #007bff; /* Highlighted border color (blue in this example) */
+    border-radius: 4px; /* Rounded corners */
+    padding: 5px; 
+    }
+
+    label{
+        margin-left:20px;
+        font-weight: bold;
+    }
+    h5{
+        margin-left:20px;
+    }
+
+
+         /* Styles for the Calculate button */
+         .container3 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+
+        .calculate-button {
+            background-color: transparent; /* Transparent background */
+            border: 2px solid #007bff; /* Blue border */
+            color: #007bff; /* Blue text color */
+            padding: 20px 40px; /* Increase padding for larger size */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* Smooth transition on hover */
+            text-align: center; /* Center the text */
+            text-decoration: none; /* Remove underline on the button */
+            font-size: 15px; /* Increase font size */
+        }
+
+        /* Hover effect */
+        .calculate-button:hover {
+            background-color: #007bff; /* Blue background on hover */
+            color: #fff; /* White text color on hover */
+        }
+    
+
+
+        .container1 {
+            position: relative;
+            width: 100%;
+            height: 20vh;
+            background-image: url('../static/images/cal4.avif'); /* Replace 'your-image.jpg' with your image URL */
+            background-size: cover;
+            background-position: center;
+            
+        }
+
+        /* Styles for the centered text */
+        .centered-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .centered-text h1 {
+            color: black; /* White text color */
+            font-weight: bold; /* Bold font weight */
+            font-size: 24px; /* Adjust the font size as needed */
+        }
+
+
+        .container2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('../static/images/cal3.webp'); /* Replace 'your-image.jpg' with your image URL */
+            background-size: cover;
+            background-position: center;
+        }
+    
+        /* Styles for the form */
+        form {
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background for the form */
+    
+            border-radius: 10px;
+            
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Add a shadow for depth */
+        }
+    
+        /* Styles for the button */
+        .btn-primary {
+            border: 2px solid #007bff; /* Blue border */
+            background-color: #007bff; /* Blue background color */
+            color: white; /* White text color */
+            font-weight: bold; /* Bold text */
+            padding: 10px 20px; /* Increase padding for a larger button */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* Smooth transition on hover */
+        }
+    
+        /* Hover effect for the button */
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker blue background on hover */
+            border-color: #0056b3; /* Darker blue border on hover */
+            
+        }
+    
+        /* Styles for the form input fields */
+        .form-group {
+            margin-right: 100px; /* Add spacing between fields */
+            margin-left:100px;
+            margin-top:10px;
+            margin-bottom:10px;
+        }
+
+       
+    
+  </style>
+
+
+
+<body> 
+    
+    
+    <div class="container1">
+      <div class="centered-text">
         <h1>Price Calculator</h1>
+      </div>
+    </div>
+
+  
+    <div class="container2">
         <form method="post" action="calculator">
             {% csrf_token %}
-            
             <div class="form-group">
                 <label for="shipping_address">Shipping Address:</label>
                 <input type="text" name="shipping_address" class="form-control" required>
@@ -33,12 +171,92 @@ Price Calculator
                 <label for="package_weight">Package Weight (kg):</label>
                 <input type="number" name="package_weight" class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-primary">Calculate</button>
+            
         </form>
-
+    
         {% if total_price %}
         <h2>Total Price: ${{ total_price }}</h2>
         {% endif %}
     </div>
+
+<!-- shipment_form.html -->
+<form  method="post">
+    {% csrf_token %}
+    <div class="form-group mt-5" >
+        <h5 class=" mb-4">Where will we be sending the package?</h5>
+      <label for="id_country">Country:</label>
+      <select class="form-control inline-input" id="id_country" name="country">
+        <option value="USA">USA</option>
+        <option value="Canada">Canada</option>
+        <!-- Add more country options as needed -->
+      </select>
+  
+      <label for="id_city">City:</label>
+      <input type="text" class="form-control inline-input" id="id_city" name="city" required>
+  
+      <label for="id_postal_code">Postal Code:</label>
+      <input type="text" class="form-control inline-input" id="id_postal_code" name="postal_code" required>
+
+      <p class="mt-4" style="margin-left:20px">Please keep in mind that prices may vary and are subject to change.</p>
+    </div>
+    
+  </form>
+  
+ 
+  
+
+  <hr class='mt-5'>
+
+
+  <div class="container3">
+    <!-- Calculate button with calculator icon -->
+    <a href="#" class="calculate-button">
+        <i class="fas fa-calculator"></i> Calculate
+    </a>
+</div>
+ 
+
+
+
+
+    <footer class="help mt-5" style="background-color: #000; color: #fff; width:100wh;">
+      
+        <div class="container"> 
+          <div class="row">
+            <div class="col-md-4">
+              <h4>About Us</h4>
+              <p>Your company's mission and a brief description can go here. You can also include your company's history and values.</p>
+            </div>
+            <div class="col-md-3">
+              <h4>Contact Information</h4>
+              <address>
+                <p><strong>JOONGLE</strong></p>
+                <p>123 Shipping Street</p>
+                <p>City, State ZIP Code</p>
+                <p>Email: info@yourcompany.com</p>
+                <p>Phone: +1 (123) 456-7890</p>
+              </address>
+            </div>
+            <div class="col-md-3">
+              <h4>Quick Links</h4>
+              <ul class="list-unstyled">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">Track Order</a></li>
+              </ul>
+            </div>
+            <div class="col-md-2">
+              <h4>Follow Us</h4>
+              <ul class="list-unstyled">
+                <li><a href="#"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+                <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+      </footer>
 </body>
 {% endblock body %}
