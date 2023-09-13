@@ -19,10 +19,10 @@ from django.contrib import admin
 from django.urls import path , include
 from interface.views import Pages
 from interface.views import Pages
+app_name = "interface"
 urlpatterns = [
     
      path('',Pages.home ,name='home' ),
-     path('home',Pages.home ,name='home' ),
      path('store',Pages.store_list, name='store'),
      path('help' , Pages.help ,name='help'),
      path('printbarcode' , Pages.generate_barcode ,name='printbarcode'),

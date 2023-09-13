@@ -18,11 +18,11 @@ import requests
 
 class settings:
 
-    DHL_API_KEY = 'Wjgw0r1yUNgJJnjcboDQ7P6xuDUOSSXW'
-    DHL_API_SECRET = 'hXSfV9GFpWFOxT1D'
-    DHL_ACCOUNT = '950250272'
-    DHL_ACCOUNT_IMPORT = '950250272'
-    DHL_ACCOUNT_EXPORT = '950250272'
+    DHL_API_KEY = 'apR2xG7lB8tO6j'
+    DHL_API_SECRET = 'R#7mB!4eM@5sC^5j'
+    DHL_ACCOUNT = '955601149'
+    DHL_ACCOUNT_IMPORT = '955601149'
+    DHL_ACCOUNT_EXPORT = '955601149'
 
 
 with open('jongle/static/images/logo.png', 'rb') as logo_file:

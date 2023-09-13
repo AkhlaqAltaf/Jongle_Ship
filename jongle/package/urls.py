@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.urls import path , include
 from interface.views import Pages
 from .views import Pages
+app_name = 'packages'
 urlpatterns = [
  
      path('packages' , Pages.my_packages ,name='packages'),
@@ -40,11 +41,6 @@ urlpatterns = [
  
     #     path('path/to/fetch/notifications/', Pages.fetch_notifications, name='fetch-notifications'),
     # path('path/to/mark/notifications/as/read/', Pages.mark_notifications_as_read, name='mark-notifications-as-read'),
-
-
-
-
-
     # path('reset_password/', Pages.reset_password, name='reset_password'),
     # path('reset_password/<uidb64>/<token>/', Pages.reset_password_confirm, name='reset_password_confirm'),
      

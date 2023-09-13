@@ -11,7 +11,7 @@
                         Action Required
                     </div>
                     <div class="card-body">
-                        <form action="{% url 'process_actions' %}" method="post">
+                        <form action="{% url 'packages:process_actions' %}" method="post">
                             {% csrf_token %}
                             <ul>
                                 {% for package in action_required_packages %}
