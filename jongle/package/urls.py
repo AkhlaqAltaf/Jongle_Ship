@@ -24,12 +24,10 @@ urlpatterns = [
  
      path('packages' , Pages.my_packages ,name='packages'),
      path('uploadpackages' , Pages.upload_package ,name='uploadpackages'),
-    
-     
-
-       path('warehouse' , Pages.warehouse ,name= 'warehouse'),
-
-           path('in-warehouse', Pages.warehouse, name='in_warehouse'),
+     path('sendpackage' ,Pages.upload_package ,name='sendpackage'),
+     path('assistedtopurchase' ,Pages.upload_package ,name='assistedtopurchase'),
+    path('warehouse' , Pages.warehouse ,name= 'warehouse'),
+    path('in-warehouse', Pages.warehouse, name='in_warehouse'),
     path('process_actions', Pages.process_actions, name='process_actions'),
     path('repackage-popup/<int:profile_id>', Pages.show_repackage_popup, name='show_repackage_popup'),
     path('process-repackage/<int:profile_id>', Pages.process_repackage, name='process_repackage'),

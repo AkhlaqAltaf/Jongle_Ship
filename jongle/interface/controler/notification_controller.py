@@ -16,7 +16,7 @@ def fetch_message(request):
     notifications = Notification.objects.filter(user=user).order_by('-created_at')
     unread_count = notifications.filter(is_read=False)
 
-    print("Here is Data ", notifications[0].message)
+   
     notification_data = []
     for notification in unread_count:
         notification_data.append({

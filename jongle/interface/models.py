@@ -15,14 +15,18 @@ class PricePerKg(models.Model):
 
 class CustomUser(models.Model):
     user = models.OneToOneField(BaseUser, on_delete=models.CASCADE)
-    destinationCountry = models.TextField(default="")
+    
     name = models.CharField(max_length=100)
+    destinationCountry = models.TextField(default="")
+    city_name = models.CharField( default=' ', max_length=100)
+    postal_code = models.CharField(default=' ' , max_length=100)
     address = models.TextField()
     phone = models.IntegerField()
     email = models.EmailField()
     unique_address = models.TextField()
     unique_id = models.TextField()
     forward_consolidation = models.BooleanField(default=False)
+    
     
     def __str__(self):
         return self.unique_id

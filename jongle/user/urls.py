@@ -19,6 +19,7 @@ Including another URLconf
 from django.urls import path 
 from interface.views import Pages
 from user.views import Pages
+app_name ='user'
 urlpatterns = [
     
     #  path('',Pages.home ,name='home' ),

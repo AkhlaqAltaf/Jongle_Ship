@@ -13,7 +13,7 @@ Send Message
             <h2 class="text-center">Send Message</h2>
           </div>
           <div class="card-body">
-            <form method="POST" action="send_message">
+            <form method="POST" action="{% url 'user:send_message'%}">
               {% csrf_token %}
               {% if username %}
               <div class="mb-3">

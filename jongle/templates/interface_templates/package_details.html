@@ -10,7 +10,7 @@ Packages - {{ request.user }}
       <div class="row justify-content-center">
         <div class="col-md-8">
           <div class="alert alert-info" role="alert">
-            Please <a href="user/signin">sign in</a> to access this page.
+            Please <a href="{% url 'user:signin'%}">sign in</a> to access this page.
           </div>
         </div>
       </div>

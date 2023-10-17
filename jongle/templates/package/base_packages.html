@@ -9,19 +9,19 @@
             <div class="container-fluid">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="warehouse">
+                        <a class="nav-link" href="{% url 'packages:warehouse'%}">
                             In Warehouse
                             <span id="notification-badge" class="top-0 start-100 translate-middle badge rounded-pill">1</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="sendpackage">
+                        <a class="nav-link" href="{% url 'packages:sendpackage'%}">
                             Send Packages
                             <span id="notification-badge" class="top-0 start-100 translate-middle badge rounded-pill">2</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="assistedtopurchase">
+                        <a class="nav-link" href="{% url 'packages:assistedtopurchase'%}">
                             Assisted to Purchase
                             <span id="notification-badge" class="top-0 start-100 translate-middle badge rounded-pill">3</span>
                         </a>

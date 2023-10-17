@@ -56,7 +56,7 @@
                 </div>
                 {% else %}
                 <div class="modal-body">
-                    <p>Please <a href="user/signin">sign in</a> to view the address.</p>
+                    <p>Please <a href="{% url 'user:signin'%}" >sign in</a> to view the address.</p>
                 </div>
                 {% endif %}
             </div>

@@ -21,18 +21,17 @@ from interface.views import Pages
 from interface.views import Pages
 app_name = "interface"
 urlpatterns = [
-    
-     path('',Pages.home ,name='home' ),
-     path('store',Pages.store_list, name='store'),
-     path('help' , Pages.help ,name='help'),
-     path('printbarcode' , Pages.generate_barcode ,name='printbarcode'),
-     path('calculator', Pages.calculate_price_view, name='calculator'),
-     path('dhlapi' , Pages.dhlApi , name ='dhlapi'),
-      path('dhlapi/tracking' , Pages.tracking_page , name ='dhlapi'),
-       path('get_tracking_data' , Pages.get_tracking_data , name ='dhlapi'),
-          path('upload_shipment', Pages.upload_shipment, name='upload_shipment'),
-   # path('tracking/', views.tracking_page, name='tracking_page'),
-        path('path/to/fetch/notifications/', Pages.fetch_notifications, name='fetch-notifications'),
+
+    path('',Pages.home ,name='home'),
+    path('store',Pages.store_list, name='store'),
+    path('help' , Pages.help ,name='help'),
+    path('printbarcode' , Pages.generate_barcode ,name='printbarcode'),
+    path('calculator', Pages.calculate_price_view, name='calculator'),
+    path('dhlapi' , Pages.dhlApi , name ='dhlapi'),
+    path('dhlapi/tracking' , Pages.tracking_page , name ='dhlapi'),
+    path('get_tracking_data' , Pages.get_tracking_data , name ='get_tracking_data'),
+    path('upload_shipment', Pages.upload_shipment, name='upload_shipment'),
+    path('path/to/fetch/notifications/', Pages.fetch_notifications, name='fetch-notifications'),
     path('path/to/mark/notifications/as/read/', Pages.mark_notifications_as_read, name='mark-notifications-as-read'),
 
 

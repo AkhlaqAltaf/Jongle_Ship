@@ -1,17 +1,15 @@
 from django.shortcuts import render 
 from interface.models import *
 from user.models import *
-from interface.models import Store
+from interface.models import BaseUser
 
 from django.shortcuts import render
 from .controler import notification_controller as nc
 
-from .controler import other_controller as oc
+from .controler import other_controller as os 
 from .controler import api_controller as api_c
 from .controler import email_controller as ec
-
-
-
+from .dhl import dhl_apis as dhl_api
 
 class Pages:
 
@@ -21,10 +19,8 @@ class Pages:
        print("Fetch Notification ...")
        return nc.fetch_message(request)
 
-
-
-    # update Notification 
-
+    # update Notification
+     
     def mark_notifications_as_read(request):
         print("Mark As Read Notification ....")
         return nc.read_message(request)
@@ -33,6 +29,7 @@ class Pages:
 
     def home(request):        
         # api_c.dhlApi(request=request)
+        dhl_api.letsShipData()
         return render(request , 'interface_templates/home.html')
     
 
@@ -68,10 +65,12 @@ class Pages:
 # Uploading Package it is Admin View 
 
 
-
-
-
     def calculate_price_view(request):
+
+            if request.method =='POST':
+                print("POST Method Calls ")
+                rates = api_c.rates(request)
+                return render(request, 'interface_templates/calculate_price.html')
     
             return render(request, 'interface_templates/calculate_price.html')
 

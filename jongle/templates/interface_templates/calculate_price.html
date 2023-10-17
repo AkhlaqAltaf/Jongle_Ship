@@ -149,7 +149,7 @@ Price Calculator
 
   
     <div class="container2">
-        <form method="post" action="calculator">
+        <form method="POST" action="calculator">
             {% csrf_token %}
             <div class="form-group">
                 <label for="shipping_address">Shipping Address:</label>
@@ -171,6 +171,15 @@ Price Calculator
                 <label for="package_weight">Package Weight (kg):</label>
                 <input type="number" name="package_weight" class="form-control" required>
             </div>
+            <hr class='mt-5'>
+
+
+            <div class="container3">
+              <!-- Calculate button with calculator icon -->
+             
+                  <button type="submit" class="btn primary calculate-button" ><i class="fas fa-calculator"></i>Calculate
+          </button>   
+          </div>
             
         </form>
     
@@ -178,8 +187,8 @@ Price Calculator
         <h2>Total Price: ${{ total_price }}</h2>
         {% endif %}
     </div>
-
-<!-- shipment_form.html -->
+<!-- 
+shipment_form.html
 <form  method="post">
     {% csrf_token %}
     <div class="form-group mt-5" >
@@ -188,7 +197,7 @@ Price Calculator
       <select class="form-control inline-input" id="id_country" name="country">
         <option value="USA">USA</option>
         <option value="Canada">Canada</option>
-        <!-- Add more country options as needed -->
+       
       </select>
   
       <label for="id_city">City:</label>
@@ -200,20 +209,12 @@ Price Calculator
       <p class="mt-4" style="margin-left:20px">Please keep in mind that prices may vary and are subject to change.</p>
     </div>
     
-  </form>
+  </form> -->
   
  
   
 
-  <hr class='mt-5'>
 
-
-  <div class="container3">
-    <!-- Calculate button with calculator icon -->
-    <a href="#" class="calculate-button">
-        <i class="fas fa-calculator"></i> Calculate
-    </a>
-</div>
  
 
 

@@ -30,17 +30,10 @@ class CustomUserAdmin(admin.ModelAdmin):
 
     def upload_package_link(self, obj):
 
-        url = reverse('uploadpackages')
+        url = reverse('packages:uploadpackages')
         object = CustomUser.objects.get(name= obj.user.username)
         link = f'<a href="{url}?username={obj.user.username}&destinationCountry={object.destinationCountry}" class="btn btn-link">Upload Package</a>'
         return format_html(link)
-    
-
-
-
-
-
-
 
     def send_email_link(self , obj):
         
