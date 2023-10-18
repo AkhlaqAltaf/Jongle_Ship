@@ -1,5 +1,5 @@
 from python_dhl.resources import address, shipment
-
+from python_dhl.resources.helper import AccountType, IncotermCode, MeasurementUnit, ProductCode, ShipperType, TypeCode
 class Sender:
 
 
@@ -28,7 +28,7 @@ class Sender:
         city_name=       cityName      ,         #'Thiene',
         )    
 
-    return sender_address
+        return sender_address
         
 
     def dhlSenderRegistration(reNumber , countryCode):

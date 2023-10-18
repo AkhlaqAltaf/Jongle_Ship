@@ -1,45 +1,59 @@
-
-import http
-import json
-from django.conf import settings
-from django.http import JsonResponse
-from django.shortcuts import render
-import requests
+from django.http import HttpResponse, JsonResponse
+from interface.dhl.DHL_Info.packages_info import PackagesInfo
+from interface.dhl.DHL_Info.reciever_info import Reciever
+from interface.dhl.DHL_Info.sender_info import Sender
 from interface.models import CustomUser
-from urllib.parse import urlencode
-
-
-
-
-
-
-
+from interface.dhl.dhl_apis import calculate, dhlServices
 
 def rates(request):
-
+    print('Entered rates')
+    dhl_service = dhlServices()
+    print('dhl_service')
     package_length = request.POST.get('package_length')
     package_width = request.POST.get('package_width')
     package_height = request.POST.get('package_height')
     package_weight = request.POST.get('package_weight')
     
-    user = request.user
-    print(user)
-    customUser = CustomUser.objects.filter(user=user)
-    print(customUser)
-    name = customUser[0].name
-    phone = customUser[0].phone
-    email=customUser[0].email
+    user = request.user  
 
-    # reciever_address  = recieverAddress(streetLine1 , postalCode , countryCode , cityName)
-    # sender_address    = dhlSenderAddrerss(streetLine1 , postalCode , provinceCode , countryCode , cityName)
+    try:
+        customUser = CustomUser.objects.get(user=user)
+    except CustomUser.DoesNotExist:
+        print('no user')
+      
+        return HttpResponse("CustomUser for this user does not exist")
+  
+   
+    sender_address = Sender.dhlSenderAddrerss(
+        streetLine1='CA',
+        postalCode='12121212',
+        provinceCode='121212',
+        countryCode='CA',
+        cityName='New York'
+    )
+   
+
     
-    # sender
-    # package = packageToShip(package_weight , package_length , package_width , package_height)
+ 
+    reciever_address = Reciever.recieverAddress(
+        streetLine1= customUser.address,
+        postalCode=customUser.postal_code,
+        countryCode=customUser.destinationCountry,
+        cityName=customUser.city_name
+    )
 
-    # rates = rates(senderAddress,recieverAddress,package,date)
+    package = PackagesInfo.packageToShip(
+        packageHeight=package_height,
+        packageLength=package_length,
+        packageWeight=package_weight,
+        packageWidth=package_width
+    )
+   
+    dated = '12/7/2023'
+    rate = calculate(package=package, senderAddress=sender_address, recieverAddress=reciever_address, date = dated)
+    print("Rates:", rate)
 
-    return rates
-
+    return JsonResponse({'rates': rate.success})
 
 
 

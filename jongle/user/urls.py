@@ -27,7 +27,7 @@ urlpatterns = [
 
      path('signin', Pages.signin, name='signin'),
      path('signup', Pages.signup, name='signup'),
-     path('register' , Pages.saveauth , name = 'register '),
+     path('register' , Pages.saveauth , name = 'register'),
      path('signinauth',Pages.signin_auth  ,name = 'signinauth'),
     #  path('store',Pages.store_list, name='store'),
     #  path('help' , Pages.help ,name='help'),

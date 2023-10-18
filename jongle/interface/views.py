@@ -1,19 +1,40 @@
+import json
 from django.shortcuts import render 
 from interface.models import *
 from user.models import *
+from .controler import api_controller as api_c
+from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
 from interface.models import BaseUser
 
 from django.shortcuts import render
 from .controler import notification_controller as nc
 
-from .controler import other_controller as os 
+from .controler import other_controller as oc
 from .controler import api_controller as api_c
 from .controler import email_controller as ec
 from .dhl import dhl_apis as dhl_api
+from django.http import JsonResponse
+import json
+api_c.rates  # Import the rates API function
+
 
 class Pages:
 
     # Fetch Notification    
+
+ 
+ 
+    def calculate_price_view(request):
+        if request.method == 'POST':
+            print("POST Method Calls")
+            rates_data = api_c.rates(request)
+            print(rates_data)
+            return JsonResponse(rates_data)
+        return render(request, 'interface_templates/calculate_price.html')
+
+ 
+
 
     def fetch_notifications(request): 
        print("Fetch Notification ...")
@@ -55,8 +76,6 @@ class Pages:
     # Generate  Barcodoe 
 
     def generate_barcode(profile):
-
-     
         return oc.generate_barcode(profile)
     
     
@@ -70,7 +89,9 @@ class Pages:
             if request.method =='POST':
                 print("POST Method Calls ")
                 rates = api_c.rates(request)
-                return render(request, 'interface_templates/calculate_price.html')
+                print(rates)
+                rate ={'rates':rates}
+                return render(request, 'interface_templates/calculate_price.html',rate )
     
             return render(request, 'interface_templates/calculate_price.html')
 

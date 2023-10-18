@@ -36,13 +36,13 @@ def upload_package(request):
                               forward_consolidation=False)
             profile.save()
 
-            # Create a corresponding WarehousePackage instance with "Action Required" status
-            warehouse_package = WarehousePackage(profile=profile, package=profile,
-                                                 action_required=True, selected_action='no_decision')
-            warehouse_package.save()
+            # # Create a corresponding WarehousePackage instance with "Action Required" status
+            # warehouse_package = WarehousePackage(profile=profile, package=profile,
+            #                                      action_required=True, selected_action='no_decision')
+            # warehouse_package.save()
 
             # Generate barcode image
-            barcode_image_data = oc.generate_barcode(profile)
+            # barcode_image_data = oc.generate_barcode(profile)
             context = {
                 'profiles': [profile],  # Pass the profile as a list to match the template structure
                 'request': request  # Pass the request object for context variable 'request.user'
@@ -50,7 +50,7 @@ def upload_package(request):
 
             # Send email with barcode image
             html_content = render_to_string('interface_templates/package_detail_email.html', context)
-            ec.send_package_details_email(user.email, html_content, barcode_image_data)
+            ec.send_package_details_email(user.email, html_content)
             nc.add_package_notification(user, request)
 
             messages.success(request, f"Package uploaded for user: {user.username}")

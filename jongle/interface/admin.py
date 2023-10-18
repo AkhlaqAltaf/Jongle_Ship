@@ -43,7 +43,7 @@ class CustomUserAdmin(admin.ModelAdmin):
         print("Email Is Here ",email_)
         email = quote(email_)
         print(email)
-        url = reverse('send_message')
+        url = reverse('user:send_message')
         link = f'<a href="{url}?username={obj.user.username}&email = {email}" class="btn btn-link">Send Message</a>'
         return format_html(link)
 

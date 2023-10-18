@@ -1,5 +1,5 @@
 from python_dhl.resources import shipment , address
-
+from python_dhl.resources.helper import AccountType, IncotermCode, MeasurementUnit, ProductCode, ShipperType, TypeCode
 class Reciever:
 
     def recieverContact(fullName , phoneNo , email):

@@ -210,8 +210,9 @@ def letsShipData():
 
 
 
-def rates(senderAddress,recieverAddress,package,date):
-
+def calculate(senderAddress,recieverAddress,package,date):
+    dhl_service = dhlServices()
+   
     rates = dhl_service.get_rates(senderAddress, recieverAddress, package, date)
 
     print("Rates....: ",rates.success)

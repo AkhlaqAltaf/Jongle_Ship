@@ -7,7 +7,7 @@ from interface.models import CustomUser
 
 from twisted.mail.smtp import sendmail
 from django.contrib.auth.decorators import login_required
-def send_package_details_email(recipient_email, html_content, barcode_image_data):
+def send_package_details_email(recipient_email, html_content):
         # Create an EmailMultiAlternatives object
         email = EmailMultiAlternatives(
             "Package Details",
@@ -20,7 +20,7 @@ def send_package_details_email(recipient_email, html_content, barcode_image_data
         email.attach_alternative(html_content, "text/html")
 
         # Attach the barcode image to the email
-        email.attach("barcode.png", barcode_image_data, "image/png")
+        email.attach("barcode.png", "image/png")
 
         # Send the email
         email.send()
