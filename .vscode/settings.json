@@ -1,6 +1,7 @@
 {
     "python.analysis.extraPaths": [
         "./Lib/site-packages",
-        "./jongle/Lib/site-packages"
+        "./jongle/Lib/site-packages",
+        "./jongle"
     ]
 }

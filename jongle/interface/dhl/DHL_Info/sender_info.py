@@ -18,7 +18,7 @@ class Sender:
     
     
 
-    def  dhlSenderAddrerss(streetLine1 , postalCode , provinceCode , countryCode , cityName):
+    def  dhlSenderAddress(streetLine1 , postalCode , provinceCode , countryCode , cityName):
 
         sender_address = address.DHLPostalAddress(
         street_line1=   streetLine1 ,          #'Via Maestro Zampieri, 14',

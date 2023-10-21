@@ -1,4 +1,5 @@
 import json
+import logging
 from django.shortcuts import render 
 from interface.models import *
 from user.models import *
@@ -16,7 +17,6 @@ from .controler import email_controller as ec
 from .dhl import dhl_apis as dhl_api
 from django.http import JsonResponse
 import json
-api_c.rates  # Import the rates API function
 
 
 class Pages:
@@ -25,14 +25,15 @@ class Pages:
 
  
  
-    def calculate_price_view(request):
-        if request.method == 'POST':
-            print("POST Method Calls")
-            rates_data = api_c.rates(request)
-            print(rates_data)
-            return JsonResponse(rates_data)
-        return render(request, 'interface_templates/calculate_price.html')
 
+    def calculate_price_view(request):
+            if request.method =='POST':
+                print("POST Method Calls ")
+                rates = api_c.rates(request)
+                print(rates)
+                rate ={'rates':rates}
+                return render(request, 'interface_templates/calculate_price.html',rate )
+            return render(request, 'interface_templates/calculate_price.html')
  
 
 
@@ -84,16 +85,16 @@ class Pages:
 # Uploading Package it is Admin View 
 
 
-    def calculate_price_view(request):
+    # def calculate_price_view(request):
 
-            if request.method =='POST':
-                print("POST Method Calls ")
-                rates = api_c.rates(request)
-                print(rates)
-                rate ={'rates':rates}
-                return render(request, 'interface_templates/calculate_price.html',rate )
+    #         if request.method =='POST':
+    #             print("POST Method Calls ")
+    #             rates = api_c.rates(request)
+    #             print(rates)
+    #             rate ={'rates':rates}
+    #             return render(request, 'interface_templates/calculate_price.html',rate )
     
-            return render(request, 'interface_templates/calculate_price.html')
+    #         return render(request, 'interface_templates/calculate_price.html')
 
 
 
