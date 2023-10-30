@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User as baseuser
 # Create your models here.
 
+from django.db import models
+from user.models import UserProfile  
 
 
 
@@ -40,16 +42,7 @@ class Package(models.Model):
     def __str__(self):
         return f"{self.selected_action}"  
     
-class WarehousePackage(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    package = models.ForeignKey(Package, related_name='warehouse_package', on_delete=models.CASCADE)
-    action_required = models.BooleanField(default=False)
-    selected_action = models.CharField(max_length=20, choices=Package.action_choices, default='no_decision')
 
-    def __str__(self):
-        return f"{self.package} - {self.selected_action}"
-
-      
 
 
 
@@ -72,10 +65,12 @@ class ReadyToShip(models.Model):
 
     def __str__(self):
         return f"{self.package} - {self.selected_action}"
+    
+class WarehousePackage(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    package = models.ForeignKey(Package, related_name='warehouse_package', on_delete=models.CASCADE)
+    action_required = models.BooleanField(default=False)
+    selected_action = models.CharField(max_length=20, choices=Package.action_choices, default='no_decision')
 
-
-
-
-      
-
-
+    def __str__(self):
+        return f"{self.package} - {self.selected_action}"

@@ -4,7 +4,12 @@ from interface.models import *
 from user.models import *
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from user.models import UserProfile
+from .models import Package, WarehousePackage
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect
+   
 from .controller import package_controller as pc
 from .models import *
 class Pages:
@@ -70,3 +75,40 @@ class Pages:
     def update_consolidation(request):
             return pc.update_consolidation()
 
+    @login_required
+    def upload_package(request):
+        if request.method == 'POST':
+            package_name = request.POST.get('package_name')
+            action_required = request.POST.get('action_required')
+            user_profile_id = request.POST.get('user_profile_id')
+            
+            package = Package.objects.create(package_name=package_name)
+            user_profile = UserProfile.objects.get(id=user_profile_id)
+
+            warehouse_package = WarehousePackage.objects.create(
+                user_profile=user_profile,
+                package=package,
+                action_required=action_required,
+                selected_action=action_required
+            )
+
+            return redirect('admin_package_list')
+        
+        user_profiles = UserProfile.objects.all()
+        return render(request, 'admin/upload_package.html', {'user_profiles': user_profiles})
+
+    def send_package(request, package_id):
+        if request.method == 'POST':
+            package = WarehousePackage.objects.get(id=package_id)
+            package.delete()
+            send_mail(
+                'Your Package is on the Way',
+                'Your package has been sent.',
+                'jongleship@gmail.com',  # Change to your email address
+                [package.user_profile.user.email],
+                fail_silently=False,
+            )
+            return redirect('admin_package_list')
+
+        package = WarehousePackage.objects.get(id=package_id)
+        return render(request, 'package/in_warehouse.html', {'package': package})

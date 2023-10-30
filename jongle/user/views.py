@@ -20,7 +20,12 @@ from django.utils.encoding import force_bytes, force_str
 
 from django.conf import settings
 
+from package.models import WarehousePackage
+from user.models import UserProfile
 
+
+from django.shortcuts import render
+from user.models import UserProfile
 
 
 
@@ -308,8 +313,41 @@ class Pages:
         })
         send_mail(subject, message, settings.HOST_EMAIL, [email])
 
+    def user_packages(request):
+        user_profile = UserProfile.objects.get(user=request.user)
+        packages = WarehousePackage.objects.filter(user_profile=user_profile)
+        return render(request, 'user/user_packages.html', {'packages': packages})
+
+    def take_action(request, package_id):
+        if request.method == 'POST':
+            package = WarehousePackage.objects.get(id=package_id)
+            new_action = request.POST.get('new_action')
+            package.selected_action = new_action
+            package.save()
+            return redirect('user_packages')
+
+        package = WarehousePackage.objects.get(id=package_id)
+        return render(request, 'user/take_action.html', {'package': package})
+
+        
 
 
 
+    def user_packages(request):
+        user = request.user
+        packages = WarehousePackage.objects.filter(user_profile__user=user)
+        return render(request, 'user/packages.html', {'packages': packages})
 
+    def take_action(request, package_id):
+        package = WarehousePackage.objects.get(id=package_id)
+        return render(request, 'user/take_action.html', {'package': package})
 
+    def set_ready(request, package_id):
+        package = WarehousePackage.objects.get(id=package_id)
+
+        if package.user_profile.user != request.user:
+            return redirect('user_packages')  # Make sure the user owns the package
+
+        package.selected_action = "ready"
+        package.save()
+        return redirect('user_packages')

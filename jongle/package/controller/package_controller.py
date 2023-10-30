@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.contrib.auth.models import User
+from django.urls import reverse
 from package.models import Profile , WarehousePackage
 from django.contrib import messages
 from django.shortcuts import render , redirect
@@ -67,8 +68,9 @@ def update_consolidation(request):
         consolidation = request.POST.get('consolidation')
         tracking_number =request.POST.get('tracking_number')
 
-        profile = Profile.objects.filter(tracking_number =tracking_number ).update(farward_consolidation = consolidation)
-        
+        # profile = Profile.objects.filter(tracking_number =tracking_number ).update(farward_consolidation = consolidation)
+        profile = Profile.objects.filter(tracking_number=tracking_number).update(forward_consolidation=consolidation)
+
         messages.success(request , "Update Success")
 
         return JsonResponse({"update" :consolidation})
@@ -138,7 +140,7 @@ def process_repackage(request, profile_id):
             package = WarehousePackage.objects.get(id=package_id)
             package.profile = new_package
             package.save()
-    return redirect('in_warehouse') 
+    return redirect('in_warehouse')
 
 
 
