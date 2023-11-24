@@ -22,29 +22,17 @@ from user.views import Pages
 from user.views import *
 app_name ='user'
 urlpatterns = [
-    
-    #  path('',Pages.home ,name='home' ),
-    #    path('home',Pages.home ,name='home' ),
-
      path('signin', Pages.signin, name='signin'),
      path('signup', Pages.signup, name='signup'),
      path('register' , Pages.saveauth , name = 'register'),
      path('signinauth',Pages.signin_auth  ,name = 'signinauth'),
-    #  path('store',Pages.store_list, name='store'),
-    #  path('help' , Pages.help ,name='help'),
-     path('logout' , Pages.logout ,name='logout'),
-    #  path('packages' , Pages.package_details ,name='packages'),
-    #  path('uploadpackages' , Pages.upload_package ,name='uploadpackages'),
-    #  path('printbarcode' , Pages.generate_barcode ,name='printbarcode'),
-     path('send_message', Pages.send_message, name='send_message'),
-    # path('update_action_required/<int:profile_id>/', Pages.update_action_required, name='update_action_required'),
-    #   path('calculator', Pages.calculate_price_view, name='calculator'),
+
+    path('logout' , Pages.logout ,name='logout'),
+    path('send_message', Pages.send_message, name='send_message'),
     path('reset_password/', Pages.reset_password, name='reset_password'),
     path('reset_password/<uidb64>/<token>/', Pages.reset_password_confirm, name='reset_password_confirm'),
-    
-    # User URLs
     path('user/packages/', Pages.user_packages, name='user_packages'),
     path('user/take_action/<int:package_id>/', Pages.take_action, name='take_action'),
     path('user/set_ready/<int:package_id>/', Pages.set_ready, name='set_ready'),
-     
+
 ]

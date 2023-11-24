@@ -64,38 +64,12 @@ class Pages:
     def help(request):         
          return render(request ,"interface_templates/help.html" )
     
-    
 
-# Packages Detail Will Show 
-
-    # @login_required(login_url='signin')  # Specify your login URL here
-    # def package_details(request):
-    #     return pc.package_details(request)
-
-
-
-    # Generate  Barcodoe 
 
     def generate_barcode(profile):
         return oc.generate_barcode(profile)
     
     
-
-
-# Uploading Package it is Admin View 
-
-
-    # def calculate_price_view(request):
-
-    #         if request.method =='POST':
-    #             print("POST Method Calls ")
-    #             rates = api_c.rates(request)
-    #             print(rates)
-    #             rate ={'rates':rates}
-    #             return render(request, 'interface_templates/calculate_price.html',rate )
-    
-    #         return render(request, 'interface_templates/calculate_price.html')
-
 
 
 

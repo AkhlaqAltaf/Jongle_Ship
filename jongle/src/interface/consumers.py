@@ -26,4 +26,4 @@ class NotificationConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data):
         print("In Receive Mode..........")
-        pass  # Handle any additional logic here
+        pass
